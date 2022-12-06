@@ -17,9 +17,9 @@ public class PainelTopo extends Panel {
         setLayout(new GridLayout(6, 1));
         setBackground(RColors.ROSA_CLARO);
 
-        configurarBotao(btnAdd, "Criar", "address_book_pad");
-        configurarBotao(btnExcluir, "Excluir", "recycle_bin_file");
-        configurarBotao(btnMarcarTodos, "Marcar Todos", "wia_img_check-0");
+        configurarBotao(btnAdd, "Criar", "address_book_pad", true);
+        configurarBotao(btnExcluir, "Excluir", "recycle_bin_file", false);
+        configurarBotao(btnMarcarTodos, "Marcar Todos", "wia_img_check-0", true);
 
         add(btnAdd);
         add(btnMarcarTodos);
@@ -38,7 +38,7 @@ public class PainelTopo extends Panel {
         return btnMarcarTodos;
     }
 
-    private void configurarBotao(JButton botao, String texto, String imagem) {
+    private void configurarBotao(JButton botao, String texto, String imagem, boolean habilitado) {
         URL imgURL = contexto.getImageAsset(imagem + ".png");
 
         if (imgURL != null) {
@@ -46,7 +46,7 @@ public class PainelTopo extends Panel {
             botao.setVerticalTextPosition(AbstractButton.BOTTOM);
             botao.setHorizontalTextPosition(AbstractButton.CENTER);
         }
-
+        botao.setEnabled(habilitado);
         botao.setText(texto);
         botao.setBackground(RColors.CINZA_CLARO);
     }

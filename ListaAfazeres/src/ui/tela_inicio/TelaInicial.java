@@ -8,6 +8,8 @@ import model.Afazer;
 import principal.Contexto;
 import ui.TelaBase;
 import ui.tela_adicionar.TelaAdicionar;
+import ui.tela_inicio.listener.*;
+import ui.tela_inicio.listener.*;
 
 public class TelaInicial extends TelaBase {
     private PainelTopo painelTopo;
@@ -40,7 +42,14 @@ public class TelaInicial extends TelaBase {
 
         painelTopo.getBotaoMarcarTodos().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //
+                painelLista.marcarTodos();
+            }
+        });
+
+        painelLista.setAoSelecionarListener(new AoSelecionarListener() {
+            public void aoSelecionar(ItemLista item) {
+                boolean habilitado = item.getCheckBox().isSelected();
+                painelTopo.getBotaoExcluir().setEnabled(habilitado);
             }
         });
     }

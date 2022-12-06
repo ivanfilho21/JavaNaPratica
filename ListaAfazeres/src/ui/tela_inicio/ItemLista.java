@@ -42,4 +42,8 @@ public class ItemLista extends Panel {
         add(lbAtualizadaEm);
     }
 
+    public JCheckBox getCheckBox() {
+        return checkbox;
+    }
+
 }

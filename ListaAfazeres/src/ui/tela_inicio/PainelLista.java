@@ -1,15 +1,18 @@
 package ui.tela_inicio;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import model.Afazer;
 import resources.*;
+import ui.tela_inicio.listener.*;
 
 public class PainelLista extends Panel {
     private List<Afazer> lista = new ArrayList<>();
     private ArrayList<ItemLista> listaItens = new ArrayList<>();
+    private AoSelecionarListener selecionarListener = null;
 
     public PainelLista() {
         GridLayout gridLayout = new GridLayout();
@@ -36,7 +39,15 @@ public class PainelLista extends Panel {
         montarLabels();
 
         for (int i = 0; i < lista.size(); i++) {
-            ItemLista item = new ItemLista(lista.get(i));
+            final ItemLista item = new ItemLista(lista.get(i));
+            item.getCheckBox().addItemListener(new ItemListener() {
+                @Override
+                public void itemStateChanged(ItemEvent e) {
+                    if (selecionarListener != null) {
+                        selecionarListener.aoSelecionar(item);
+                    }
+                }
+            });
             listaItens.add(item);
             add(item);
         }
@@ -55,6 +66,28 @@ public class PainelLista extends Panel {
 
     private void montarTelaVazia() {
         //
+    }
+
+    private boolean todosSelecionados() {
+        for (int i = 0; i < listaItens.size(); i++) {
+            if (!listaItens.get(i).getCheckBox().isSelected()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void marcarTodos() {
+        boolean marcados = todosSelecionados();
+
+        for (int i = 0; i < listaItens.size(); i++) {
+            listaItens.get(i).getCheckBox().setSelected(!marcados);
+        }
+    }
+
+    public void setAoSelecionarListener(AoSelecionarListener listener) {
+        this.selecionarListener = listener;
     }
 
 }
