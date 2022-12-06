@@ -10,16 +10,18 @@ import ui.TelaBase;
 import ui.tela_adicionar.TelaAdicionar;
 
 public class TelaInicial extends TelaBase {
-    private PainelTopo painelTopo = new PainelTopo();
-    private PainelLista painelLista = new PainelLista();
+    private PainelTopo painelTopo;
+    private PainelLista painelLista;
 
     public TelaInicial(Contexto contexto) {
         super(contexto);
+        painelTopo = new PainelTopo(contexto);
+        painelLista = new PainelLista();
     }
 
     @Override
     public void aoCriar() {
-        add(painelTopo, BorderLayout.PAGE_START);
+        add(painelTopo, BorderLayout.LINE_START);
         add(painelLista, BorderLayout.CENTER);
 
         carregarLista();
@@ -30,7 +32,13 @@ public class TelaInicial extends TelaBase {
             }
         });
 
-        painelTopo.getBotaoEditar().addActionListener(new ActionListener() {
+        painelTopo.getBotaoExcluir().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //
+            }
+        });
+
+        painelTopo.getBotaoMarcarTodos().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //
             }

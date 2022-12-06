@@ -1,6 +1,7 @@
 package ui.tela_inicio;
 
 import java.awt.*;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import model.Afazer;
@@ -42,13 +43,13 @@ public class PainelLista extends Panel {
     }
 
     private void montarLabels() {
-        Panel linha = new Panel(new GridLayout(1, 5));
-        linha.add(new Label("Selecionar"));
-        linha.add(new Label("ID"));
-        linha.add(new Label("Titulo"));
-        linha.add(new Label("Conteudo"));
-        linha.add(new Label("Criado em"));
-        linha.add(new Label("Atualizado em"));
+        Panel linha = new Panel(new GridLayout(1, 4));
+        JLabel lbId = new JLabel("ID");
+        lbId.setHorizontalAlignment(SwingConstants.CENTER);
+        linha.add(lbId);
+        linha.add(new JLabel("Titulo"));
+        linha.add(new JLabel("Criado em"));
+        linha.add(new JLabel("Atualizado em"));
         add(linha);
     }
 

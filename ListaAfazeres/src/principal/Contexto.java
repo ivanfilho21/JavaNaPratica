@@ -2,12 +2,16 @@ package principal;
 
 import java.awt.*;
 import java.io.*;
+import java.net.URL;
 import java.util.*;
 import ui.TelaBase;
 
 public abstract class Contexto {
+    public static final String FILE_SEPARATOR = File.separator;
+    private final String ASSETS_PATH = "assets" + FILE_SEPARATOR;
+    private final String ASSETS_IMG_PATH = ASSETS_PATH + "img" + FILE_SEPARATOR;
+
     private Frame frame = null;
-    private String assetsPath = ".\\assets\\";
     private Stack<TelaBase> pilhaDeTelas = new Stack<>();
     private String nomeClasseQueRecebeResultado = null;
     private int resultadoDaTela = 0;
@@ -33,9 +37,9 @@ public abstract class Contexto {
     }
 
     public String getAssets(String nome) {
-        File file = new File(assetsPath + nome);
+        File file = new File(ASSETS_PATH + nome);
 
-        //System.out.println("Caminho: " + assetsPath + nome);
+        //System.out.println("Caminho do Asset: " + ASSETS_PATH + nome);
         //System.out.println("Arquivo existe: " + file.exists());
 
         FileReader fr = null;
@@ -65,8 +69,21 @@ public abstract class Contexto {
         return sb.toString().trim();
     }
 
+    public URL getImageAsset(String nome) {
+        File file = new File(ASSETS_IMG_PATH + nome);
+
+        System.out.println("Caminho do Asset: " + ASSETS_IMG_PATH + nome);
+        System.out.println("Arquivo existe: " + file.exists());
+
+        try {
+            return file.toURI().toURL();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public void appendAssetsFile(String nome, String conteudo) {
-        File file = new File(assetsPath + nome);
+        File file = new File(ASSETS_PATH + nome);
         
         //
         FileWriter fw = null;
