@@ -40,8 +40,6 @@ public class BancoDeDados {
     }
 
     public void excluirAfazer(Afazer afazer) {
-        // TODO: vai ter que pegar todo o conteúdo,
-        // modificar a linha correta e salvar tudo sem append.
         String conteudoArquivo = contexto.getAssets(ARQUIVO);
         String id = "" + afazer.getId();
         afazer.setAtualizadoEm(new Date());
@@ -49,8 +47,7 @@ public class BancoDeDados {
 
         String novoConteudo = Parser.atualizarPeloId(conteudoArquivo, id, montarLinha(afazer));
 
-        // Colocar um campo no objeto pra identificar que está deletado.
-        //contexto.updateAssetsFile(ARQUIVO, novoConteudo, false);
+        contexto.updateAssetsFile(ARQUIVO, novoConteudo, false);
     }
 
     private String montarLinha(Afazer afazer) {

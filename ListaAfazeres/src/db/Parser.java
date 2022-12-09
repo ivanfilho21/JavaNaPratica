@@ -7,9 +7,29 @@ import java.util.*;
 public class Parser {
 
     public static String atualizarPeloId(String conteudo, String id, String conteudoLinha) {
-        DateHelper.format(new Date(), DateHelper.Formato.INPUT_DATE, null);
+        ArrayList<Afazer> lista = new ArrayList<>();
+        String[] objetos = conteudo.split("#");
+        StringBuilder sb = new StringBuilder();
 
-        return "";
+        for (int i = 0; i < objetos.length; i++) {
+            String objeto = objetos[i];
+            String[] atributos = objeto.split(";");
+
+            if (atributos.length <= 1) {
+                continue;
+            }
+
+            String objId = getValorDoAtributoPelaChave("id", atributos);
+
+            if (id.equals(objId)) {
+                sb.append(conteudoLinha).append("#");
+                continue;
+            }
+
+            sb.append(objeto).append("#");
+        }
+
+        return sb.toString();
     }
 
     public static List<Afazer> getOcorrencias(String conteudo) {
@@ -23,18 +43,18 @@ public class Parser {
             String[] atributos = objeto.split(";");
 
             if (atributos.length <= 1) {
-                break;
+                continue;
             }
             //System.out.println();
 
-            String id = getAtributoPelaChave("id", atributos);
-            String criado = getAtributoPelaChave("criado_em", atributos);
-            String atualizado = getAtributoPelaChave("atualizado_em", atributos);
-            String deletado = getAtributoPelaChave("deletado", atributos);
+            String id = getValorDoAtributoPelaChave("id", atributos);
+            String criado = getValorDoAtributoPelaChave("criado_em", atributos);
+            String atualizado = getValorDoAtributoPelaChave("atualizado_em", atributos);
+            String deletado = getValorDoAtributoPelaChave("deletado", atributos);
 
             afazer.setId(Integer.parseInt(id));
-            afazer.setTitulo(getAtributoPelaChave("titulo", atributos));
-            afazer.setConteudo(getAtributoPelaChave("conteudo", atributos));
+            afazer.setTitulo(getValorDoAtributoPelaChave("titulo", atributos));
+            afazer.setConteudo(getValorDoAtributoPelaChave("conteudo", atributos));
             afazer.setDeletado(deletado != null && deletado.equalsIgnoreCase("S"));
             afazer.setCriadoEm(DateHelper.parse(criado, DateHelper.Formato.INPUT_DATE));
             afazer.setAtualizadoEm(DateHelper.parse(atualizado, DateHelper.Formato.INPUT_DATE));
@@ -45,7 +65,7 @@ public class Parser {
         return lista;
     }
 
-    private static String getAtributoPelaChave(String chave, String[] atributos) {
+    private static String getValorDoAtributoPelaChave(String chave, String[] atributos) {
         for (int i = 0; i < atributos.length; i++) {
             String atributoTexto = atributos[i];
             String[] chaveValor = atributoTexto.split(":");
