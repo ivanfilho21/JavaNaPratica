@@ -4,4 +4,3 @@ id:8;criado_em:2022-12-07;atualizado_em:;titulo:b;conteudo:null;#
 id:9;criado_em:2022-12-07;atualizado_em:2022-12-07;titulo:Abc;conteudo:123;#
 id:10;criado_em:2022-12-07;atualizado_em:2022-12-07;titulo:b;conteudo:null;deletado:;#
 id:11;criado_em:2022-12-07;atualizado_em:2022-12-07;titulo:Deletada;conteudo:Abc;deletado:S;#
-id:7;criado_em:2022-12-09;atualizado_em:2022-12-09;titulo:Deletada;conteudo:Abc;deletado:;#

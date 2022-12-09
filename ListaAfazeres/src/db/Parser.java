@@ -35,7 +35,7 @@ public class Parser {
             afazer.setId(Integer.parseInt(id));
             afazer.setTitulo(getAtributoPelaChave("titulo", atributos));
             afazer.setConteudo(getAtributoPelaChave("conteudo", atributos));
-            afazer.setDeletado(deletado == "S");
+            afazer.setDeletado(deletado != null && deletado.equalsIgnoreCase("S"));
             afazer.setCriadoEm(DateHelper.parse(criado, DateHelper.Formato.INPUT_DATE));
             afazer.setAtualizadoEm(DateHelper.parse(atualizado, DateHelper.Formato.INPUT_DATE));
 
