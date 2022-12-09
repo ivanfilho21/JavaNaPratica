@@ -20,10 +20,6 @@ public class ItemLista extends Panel {
         montar();
     }
 
-    public Afazer getAfazer() {
-        return afazer;
-    }
-
     private void montar() {
         String criadoEm = DateHelper.format(afazer.getCriadoEm(), DateHelper.Formato.OUTPUT_DATE, "-");
         String atualizadoEm = DateHelper.format(afazer.getAtualizadoEm(), DateHelper.Formato.OUTPUT_DATE, "-");
@@ -40,6 +36,10 @@ public class ItemLista extends Panel {
         add(lbTitulo);
         add(lbCriadoEm);
         add(lbAtualizadaEm);
+    }
+
+    public Afazer getAfazer() {
+        return afazer;
     }
 
     public JCheckBox getCheckBox() {

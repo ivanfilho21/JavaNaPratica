@@ -1,13 +1,13 @@
 package db;
 
-import java.util.*;
 import helper.DateHelper;
+import java.util.*;
 import model.Afazer;
 import principal.Contexto;
 
 public class BancoDeDados {
     private Contexto contexto;
-    private final String nomeArquivo = "afazeres.txt";
+    private final String ARQUIVO = "afazeres.txt";
     private static BancoDeDados instancia = null;
 
     private BancoDeDados(Contexto contexto) {
@@ -25,28 +25,50 @@ public class BancoDeDados {
     }
 
     public List<Afazer> listarAfazeres() {
-        String conteudoArquivo = contexto.getAssets(nomeArquivo);
+        String conteudoArquivo = contexto.getAssets(ARQUIVO);
         //System.out.println("Conteudo: " + conteudoArquivo);
 
         return Parser.getOcorrencias(conteudoArquivo);
     }
 
     public void adicionarAfazer(Afazer afazer) {
-        int tamanho = listarAfazeres().size();
-        String criadoEm = DateHelper.format(new Date(), DateHelper.Formato.INPUT_DATE, null);
+        afazer.setId(listarAfazeres().size() + 1);
+        afazer.setCriadoEm(new Date());
+        afazer.setAtualizadoEm(new Date());
 
-        afazer.setId(tamanho + 1);
-        
-        String linha = new StringBuilder()
-                .append("id:").append(afazer.getId()).append(";")
+        contexto.updateAssetsFile(ARQUIVO, montarLinha(afazer), true);
+    }
+
+    public void excluirAfazer(Afazer afazer) {
+        // TODO: vai ter que pegar todo o conteúdo,
+        // modificar a linha correta e salvar tudo sem append.
+        String conteudoArquivo = contexto.getAssets(ARQUIVO);
+        String id = "" + afazer.getId();
+        afazer.setAtualizadoEm(new Date());
+        afazer.setDeletado(true);
+
+        String novoConteudo = Parser.atualizarPeloId(conteudoArquivo, id, montarLinha(afazer));
+
+        // Colocar um campo no objeto pra identificar que está deletado.
+        //contexto.updateAssetsFile(ARQUIVO, novoConteudo, false);
+    }
+
+    private String montarLinha(Afazer afazer) {
+        String criadoEm = DateHelper.format(afazer.getCriadoEm(), DateHelper.Formato.INPUT_DATE, null);
+        String atualizadoEm = DateHelper.format(afazer.getAtualizadoEm(), DateHelper.Formato.INPUT_DATE, null);
+        String titulo = afazer.getTitulo();
+        String conteudo = afazer.getConteudo();
+        String deletado = afazer.isDeletado() ? "S" : "";
+
+        return new StringBuilder()
+                .append("id:").append("" + afazer.getId()).append(";")
                 .append("criado_em:").append(criadoEm).append(";")
-                .append("atualizado_em:").append(";")
-                .append("titulo:").append(afazer.getTitulo()).append(";")
-                .append("conteudo:").append(afazer.getConteudo()).append(";")
+                .append("atualizado_em:").append(atualizadoEm).append(";")
+                .append("titulo:").append(titulo == null ? "" : titulo).append(";")
+                .append("conteudo:").append(conteudo == null ? "" : conteudo).append(";")
+                .append("deletado:").append(deletado).append(";")
                 .append("#")
                 .toString();
-
-        contexto.appendAssetsFile(nomeArquivo, linha);
     }
 
 }

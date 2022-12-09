@@ -82,7 +82,7 @@ public abstract class Contexto {
         }
     }
 
-    public void appendAssetsFile(String nome, String conteudo) {
+    public void updateAssetsFile(String nome, String conteudo, boolean append) {
         File file = new File(ASSETS_PATH + nome);
         
         //
@@ -90,7 +90,7 @@ public abstract class Contexto {
         BufferedWriter bw = null;
 
         try {
-            fw = new FileWriter(file, true);
+            fw = new FileWriter(file, append);
         } catch(Exception e) {
             //
         }

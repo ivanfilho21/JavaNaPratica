@@ -1,4 +1,7 @@
-id:1;criado_em:2022-12-04;atualizado_em:;titulo:a;conteudo:;#
-id:2;criado_em:2022-12-04;atualizado_em:;titulo:b;conteudo:;#
-id:3;criado_em:2022-12-04;atualizado_em:;titulo:Abc;conteudo:123;#
-id:4;criado_em:2022-12-05;atualizado_em:;titulo:;conteudo:Abc;#
+id:6;criado_em:2022-12-06;atualizado_em:;titulo:b;conteudo:null;#
+id:7;criado_em:2022-12-06;atualizado_em:;titulo:a;conteudo:null;#
+id:8;criado_em:2022-12-07;atualizado_em:;titulo:b;conteudo:null;#
+id:9;criado_em:2022-12-07;atualizado_em:2022-12-07;titulo:Abc;conteudo:123;#
+id:10;criado_em:2022-12-07;atualizado_em:2022-12-07;titulo:b;conteudo:null;deletado:;#
+id:11;criado_em:2022-12-07;atualizado_em:2022-12-07;titulo:Deletada;conteudo:Abc;deletado:S;#
+id:7;criado_em:2022-12-09;atualizado_em:2022-12-09;titulo:Deletada;conteudo:Abc;deletado:;#

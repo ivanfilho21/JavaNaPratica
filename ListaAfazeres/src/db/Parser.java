@@ -6,6 +6,12 @@ import java.util.*;
 
 public class Parser {
 
+    public static String atualizarPeloId(String conteudo, String id, String conteudoLinha) {
+        DateHelper.format(new Date(), DateHelper.Formato.INPUT_DATE, null);
+
+        return "";
+    }
+
     public static List<Afazer> getOcorrencias(String conteudo) {
         ArrayList<Afazer> lista = new ArrayList<>();
         String[] objetos = conteudo.split("#");
@@ -24,10 +30,12 @@ public class Parser {
             String id = getAtributoPelaChave("id", atributos);
             String criado = getAtributoPelaChave("criado_em", atributos);
             String atualizado = getAtributoPelaChave("atualizado_em", atributos);
+            String deletado = getAtributoPelaChave("deletado", atributos);
 
             afazer.setId(Integer.parseInt(id));
             afazer.setTitulo(getAtributoPelaChave("titulo", atributos));
             afazer.setConteudo(getAtributoPelaChave("conteudo", atributos));
+            afazer.setDeletado(deletado == "S");
             afazer.setCriadoEm(DateHelper.parse(criado, DateHelper.Formato.INPUT_DATE));
             afazer.setAtualizadoEm(DateHelper.parse(atualizado, DateHelper.Formato.INPUT_DATE));
 

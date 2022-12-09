@@ -3,6 +3,7 @@ package ui.tela_inicio;
 import db.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.List;
 import model.Afazer;
 import principal.Contexto;
@@ -34,9 +35,26 @@ public class TelaInicial extends TelaBase {
             }
         });
 
+        painelTopo.getBotaoDuplicar().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ItemLista item = painelLista.getItemSelecionado();
+                if (item != null) {
+                    BancoDeDados.getInstancia().adicionarAfazer(item.getAfazer());
+                    carregarLista();
+                }
+            }
+        });
+
         painelTopo.getBotaoExcluir().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //
+                List<ItemLista> selecionados = painelLista.getItensSelecionados();
+                
+                for (int i = 0; i < selecionados.size(); i++) {
+                    ItemLista item = selecionados.get(i);
+                    BancoDeDados.getInstancia().excluirAfazer(item.getAfazer());
+                }
+
+                carregarLista();
             }
         });
 
@@ -47,9 +65,8 @@ public class TelaInicial extends TelaBase {
         });
 
         painelLista.setAoSelecionarListener(new AoSelecionarListener() {
-            public void aoSelecionar(ItemLista item) {
-                boolean habilitado = item.getCheckBox().isSelected();
-                painelTopo.getBotaoExcluir().setEnabled(habilitado);
+            public void aoSelecionar(List<ItemLista> itens) {
+                painelTopo.habilitarBotoesDeItem(itens.size());
             }
         });
     }
@@ -68,9 +85,21 @@ public class TelaInicial extends TelaBase {
 
     private void carregarLista() {
         List<Afazer> lista = BancoDeDados.getInstancia().listarAfazeres();
-        System.out.println("\nQtd de afazeres: " + lista.size());
+        painelLista.setLista(filtrarItensNaoDeletados(lista));
+    }
 
-        painelLista.setLista(lista);
+    private List<Afazer> filtrarItensNaoDeletados(List<Afazer> lista) {
+        ArrayList<Afazer> filtrada = new ArrayList<>();
+
+        for (int i = 0; i < lista.size(); i++) {
+            Afazer afazer = lista.get(i);
+
+            if (!afazer.isDeletado()) {
+                filtrada.add(afazer);
+            }
+        }
+
+        return filtrada;
     }
 
 }

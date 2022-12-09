@@ -8,6 +8,7 @@ public class Afazer {
     private String conteudo;
     private Date criadoEm;
     private Date atualizadoEm;
+    private boolean deletado;
 
     public void setId(int id) {
         this.id = id;
@@ -31,6 +32,14 @@ public class Afazer {
 
     public String getConteudo() {
         return conteudo;
+    }
+
+    public void setDeletado(boolean deletado) {
+        this.deletado = deletado;
+    }
+
+    public boolean isDeletado() {
+        return deletado;
     }
 
     public void setCriadoEm(Date criadoEm) {

@@ -11,6 +11,7 @@ public class PainelTopo extends Panel {
     private JButton btnAdd = new JButton();
     private JButton btnExcluir = new JButton();
     private JButton btnMarcarTodos = new JButton();
+    private JButton btnDuplicar = new JButton();
 
     public PainelTopo(Contexto contexto) {
         this.contexto = contexto;
@@ -18,16 +19,22 @@ public class PainelTopo extends Panel {
         setBackground(RColors.ROSA_CLARO);
 
         configurarBotao(btnAdd, "Criar", "address_book_pad", true);
-        configurarBotao(btnExcluir, "Excluir", "recycle_bin_file", false);
         configurarBotao(btnMarcarTodos, "Marcar Todos", "wia_img_check-0", true);
+        configurarBotao(btnExcluir, "Excluir", "recycle_bin_file", false);
+        configurarBotao(btnDuplicar, "Duplicar", "address_book_card_copy-0", false);
 
         add(btnAdd);
         add(btnMarcarTodos);
+        add(btnDuplicar);
         add(btnExcluir);
     }
 
     public JButton getBotaoAdicionar() {
         return btnAdd;
+    }
+
+    public JButton getBotaoDuplicar() {
+        return btnDuplicar;
     }
 
     public JButton getBotaoExcluir() {
@@ -36,6 +43,11 @@ public class PainelTopo extends Panel {
 
     public JButton getBotaoMarcarTodos() {
         return btnMarcarTodos;
+    }
+
+    public void habilitarBotoesDeItem(int selecionados) {
+        btnExcluir.setEnabled(selecionados > 0);
+        btnDuplicar.setEnabled(selecionados == 1);
     }
 
     private void configurarBotao(JButton botao, String texto, String imagem, boolean habilitado) {

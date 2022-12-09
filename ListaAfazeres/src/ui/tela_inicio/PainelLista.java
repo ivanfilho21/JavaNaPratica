@@ -29,28 +29,28 @@ public class PainelLista extends Panel {
 
     private void atualizarTela() {
         removeAll();
-        revalidate();
         
         if (lista.isEmpty()) {
             montarTelaVazia();
-            return;
-        }
+        } else {
+            montarLabels();
 
-        montarLabels();
-
-        for (int i = 0; i < lista.size(); i++) {
-            final ItemLista item = new ItemLista(lista.get(i));
-            item.getCheckBox().addItemListener(new ItemListener() {
-                @Override
-                public void itemStateChanged(ItemEvent e) {
-                    if (selecionarListener != null) {
-                        selecionarListener.aoSelecionar(item);
+            for (int i = 0; i < lista.size(); i++) {
+                final ItemLista item = new ItemLista(lista.get(i));
+                item.getCheckBox().addItemListener(new ItemListener() {
+                    @Override
+                    public void itemStateChanged(ItemEvent e) {
+                        if (selecionarListener != null) {
+                            selecionarListener.aoSelecionar(getItensSelecionados());
+                        }
                     }
-                }
-            });
-            listaItens.add(item);
-            add(item);
+                });
+                listaItens.add(item);
+                add(item);
+            }
         }
+
+        revalidate();
     }
 
     private void montarLabels() {
@@ -76,6 +76,32 @@ public class PainelLista extends Panel {
         }
 
         return true;
+    }
+
+    public ItemLista getItemSelecionado() {
+        for (int i = 0; i < listaItens.size(); i++) {
+            ItemLista item = listaItens.get(i);
+
+            if (item.getCheckBox().isSelected()) {
+                return item;
+            }
+        }
+
+        return null;
+    }
+
+    public List<ItemLista> getItensSelecionados() {
+        ArrayList<ItemLista> listaSelecionados = new ArrayList<>();
+
+        for (int i = 0; i < listaItens.size(); i++) {
+            ItemLista item = listaItens.get(i);
+
+            if (item.getCheckBox().isSelected()) {
+                listaSelecionados.add(item);
+            }
+        }
+
+        return listaSelecionados;
     }
 
     public void marcarTodos() {
