@@ -14,7 +14,7 @@ if exist %OUTPUT_DIR% (
 
 :: Compilar o arquivo principal do projeto
 cd src\
-javac -d ..\out\ .\%MAIN_CLASS_DIR%\%MAIN_CLASS_NAME%.java
+javac -d ..\out\ .\%MAIN_CLASS_DIR%\%MAIN_CLASS_NAME%.java -encoding UTF-8
 
 :: Executar a classe principal
 java -classpath ..\out\ %MAIN_CLASS_DIR%.%MAIN_CLASS_NAME%

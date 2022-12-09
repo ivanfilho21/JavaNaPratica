@@ -13,6 +13,7 @@ public class PainelLista extends Panel {
     private List<Afazer> lista = new ArrayList<>();
     private ArrayList<ItemLista> listaItens = new ArrayList<>();
     private AoSelecionarListener selecionarListener = null;
+    private ListaVaziaListener listaVaziaListener = null;
 
     public PainelLista() {
         GridLayout gridLayout = new GridLayout();
@@ -29,8 +30,14 @@ public class PainelLista extends Panel {
 
     private void atualizarTela() {
         removeAll();
+
+        boolean listaVazia = lista.isEmpty();
+
+        if (listaVaziaListener != null) {
+            listaVaziaListener.listaVazia(listaVazia);
+        }
         
-        if (lista.isEmpty()) {
+        if (listaVazia) {
             montarTelaVazia();
         } else {
             montarLabels();
@@ -65,7 +72,7 @@ public class PainelLista extends Panel {
     }
 
     private void montarTelaVazia() {
-        //
+        add(new JLabel("Não há anotações"));
     }
 
     private boolean todosSelecionados() {
@@ -114,6 +121,10 @@ public class PainelLista extends Panel {
 
     public void setAoSelecionarListener(AoSelecionarListener listener) {
         this.selecionarListener = listener;
+    }
+
+    public void setListaVaziaListener(ListaVaziaListener listener) {
+        this.listaVaziaListener = listener;
     }
 
 }

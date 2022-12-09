@@ -10,7 +10,7 @@ then
 fi
 
 cd src
-javac -d ../out "$STARTING_CLASS_PACKAGE/$STARTING_CLASS_NAME".java
+javac -d ../out "$STARTING_CLASS_PACKAGE/$STARTING_CLASS_NAME".java -encoding UTF-8
 
 if [ -d "$BUILD_PATH" ];
 then

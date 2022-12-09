@@ -27,8 +27,6 @@ public class TelaInicial extends TelaBase {
         add(painelTopo, BorderLayout.LINE_START);
         add(painelLista, BorderLayout.CENTER);
 
-        carregarLista();
-
         painelTopo.getBotaoAdicionar().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 iniciarTelaComResultado(new TelaAdicionar(getContexto()));
@@ -69,6 +67,15 @@ public class TelaInicial extends TelaBase {
                 painelTopo.habilitarBotoesDeItem(itens.size());
             }
         });
+
+        painelLista.setListaVaziaListener(new ListaVaziaListener() {
+            public void listaVazia(boolean vazia) {
+                painelTopo.getBotaoMarcarTodos().setEnabled(!vazia);
+            }
+        });
+
+        
+        carregarLista();
     }
 
     @Override
